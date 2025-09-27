@@ -48,7 +48,61 @@ Incluye:
 - ✅ Ejemplos de request/response
 - ✅ Validaciones y códigos de estado HTTP
 
-## 🧪 4) Probar con cURL
+## 4) Explicación de las entidades
+### 🎬 Películas
+La tabla Movies cuenta con los siguientes campos:
+```bash
+{
+  "name": string
+  "genre": enum
+  "description": string
+  "time": int
+  "ageRestriction": enum
+  "premiere":  boolean
+  "showTimes": lista de showTimes
+}
+```
+Los valores que `genre` puede tomar son:
+```bash
+    ACCION
+    COMEDIA
+    DRAMA
+    CIENCIA_FICCION
+    ROMANCE
+    TERROR
+    SUSPENSO
+    ANIMACION
+    DOCUMENTAL
+    AVENTURA
+    MUSICAL
+    FANTASIA
+    CRIMEN
+    HISTORICA
+```
+
+Los valores que ageRestriction puede tomar son:
+```bash
+    ATP
+    MAYORES_7
+    MAYORES_13
+    MAYORES_16
+    MAYORES_18
+```
+
+### ⏰ShowTimes
+La tabla ShowTime cuenta con los siguientes campos:
+```bash
+{
+  "startTime": string ("yyyy-MM-dd HH:mm")
+  "prince": double
+  "cinemaId": int
+  "movie": int
+}
+```
+* `cinemaId`: No es una llave dentro de la base de datos, ya que pertenece a una tabla en otro microservicio
+* `movie`: Es el ID de la tabla Movies, es el join entre ambas tablas, tienen una relación de ManyToOne
+
+## 🧪 5) Probar con cURL
 
 ### 🎬 Películas
 
@@ -57,11 +111,13 @@ Incluye:
 curl -X POST http://localhost:8080/movies \
   -H "Content-Type: application/json" \
   -d '{
-    "title": "Inception",
-    "genre": "Ciencia Ficción",
-    "duration": 148,
-    "premiere": true
-  }'
+  "name": "Avatar 2",
+  "genre": "ACCION",
+  "description": "Nueva entrega de la franquicia Avatar",
+  "time": 190,
+  "ageRestriction": "MAYORES_16",
+  "premiere":  true
+}'
 ```
 #### Listar todas las películas
 ```bash
@@ -78,18 +134,20 @@ curl -X GET http://localhost:8080/movies/1
 curl -X PUT http://localhost:8080/movies/1 \
   -H "Content-Type: application/json" \
   -d '{
-    "title": "Inception (Extended)",
-    "genre": "Ciencia Ficción",
-    "duration": 160,
-    "premiere": false
-  }'
+  "name": "Avatar 2",
+  "genre": "ACCION",
+  "description": "Nueva entrega de la franquicia Avatar",
+  "time": 190,
+  "ageRestriction": "MAYORES_18",
+  "premiere":  true
+}'
 ```
 
 #### Actualizar estado de premiere
 ```bash
 curl -X PATCH http://localhost:8080/movies/1/premiere \
   -H "Content-Type: application/json" \
-  -d '{"premiere": true}'
+  -d '{"premiere": false}'
 ```
 
 #### Eliminar película
@@ -104,18 +162,17 @@ curl -X DELETE http://localhost:8080/movies/1
 curl -X POST http://localhost:8080/movies/1/showtimes \
   -H "Content-Type: application/json" \
   -d '{
-    "date": "2025-10-01",
-    "time": "20:30",
-    "cinema": "Cineplanet"
-  }'
+  "startTime": "2025-09-26 18:30",
+  "cinemaId": 1}'
 ```
 
 #### Obtener showtimes por película
+Este endpoint te permite
 ```bash
 curl -X GET http://localhost:8080/movies/1/showtimes
 ```
 
-## 5) Lista completa de endpoints
+## 6) Lista completa de endpoints
 
 ### 🎬 Películas
 - `POST /movies` - Crear nueva película  
@@ -129,7 +186,7 @@ curl -X GET http://localhost:8080/movies/1/showtimes
 - `POST /movies/{movieid}/showtimes` - Crear nuevo showtime para una película
 - `GET /movie/{movieId}/showtimes` - Obtener showtimes por película  
 
-## 6) Solución de problemas
+## 7) Solución de problemas
 - Error de conexión a Postgres: verifica que el contenedor `postgres` esté corriendo y que las variables en `.env` sean correctas.
 
 - Puerto en uso (8080 o 5432): edita el `docker-compose.yml` y cambia los puertos expuestos.
