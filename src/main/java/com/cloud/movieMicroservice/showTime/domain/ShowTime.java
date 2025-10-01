@@ -29,6 +29,9 @@ public class ShowTime {
     @NotNull
     private Long cinemaId;
 
+    @NotNull
+    private Long salaId;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "movie_id", nullable = false)
     @JsonIgnore
