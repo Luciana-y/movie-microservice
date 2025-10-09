@@ -21,7 +21,7 @@ public class Movie {
     private String name;
 
     @NotNull
-    private Genre genre;
+    private String genre;
 
     @NotBlank
     @Column(length = 1000)
@@ -31,7 +31,7 @@ public class Movie {
     private Integer time; // en minutos
 
     @NotNull
-    private AgeRestriction ageRestriction;
+    private String ageRestriction;
 
     @NotNull
     private Boolean premiere; // estreno o no
