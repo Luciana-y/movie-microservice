@@ -12,6 +12,7 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
+@Table(name = "movies")
 public class Movie {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -30,7 +31,6 @@ public class Movie {
     @NotNull
     private Integer time; // en minutos
 
-    @NotNull
     private String ageRestriction;
 
     @NotNull

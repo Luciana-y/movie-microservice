@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @Entity
-@Table(name = "show_times")
+@Table(name = "showtimes")
 public class ShowTime {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,10 +27,10 @@ public class ShowTime {
     private double price;
 
     @NotNull
-    private Long cinemaId;
+    private String cinemaId;
 
     @NotNull
-    private Long salaId;
+    private String salaId;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "movie_id", nullable = false)
