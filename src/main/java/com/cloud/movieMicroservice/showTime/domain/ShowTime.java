@@ -27,10 +27,13 @@ public class ShowTime {
     private double price;
 
     @NotNull
-    private String cinemaId;
+    private String cinemaIdExt;
 
     @NotNull
-    private String salaId;
+    private String salaIdExt;
+
+    @NotNull
+    private Integer salaNumber;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "movie_id", nullable = false)
