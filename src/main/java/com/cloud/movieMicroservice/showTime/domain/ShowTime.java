@@ -24,7 +24,7 @@ public class ShowTime {
     private LocalDateTime startTime;
 
     @NotNull
-    private double price;
+    private double precio;
 
     @NotNull
     private String cinemaIdExt;
