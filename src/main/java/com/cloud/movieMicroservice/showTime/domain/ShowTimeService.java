@@ -30,9 +30,9 @@ public class ShowTimeService {
 
         showTime.setMovie(movie);
         if (movie.getPremiere()) {
-            showTime.setPrice(25.0);
+            showTime.setPrecio(25.0);
         } else {
-            showTime.setPrice(15.0);
+            showTime.setPrecio(15.0);
         }
 
         return showTimeRepository.save(showTime);
